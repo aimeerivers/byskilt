@@ -41,18 +41,32 @@
       controls.update();
 
       // light
-      const light = new THREE.PointLight(0xFFFFFF, 1, 100);
-      light.position.x = -12;
+      const light = new THREE.PointLight(0xFFFFFF, 0.6, 40);
+      light.position.x = 0;
       light.position.y = 3;
       light.position.z = -15;
       scene.add(light);
 
       // material
-      let material;
-      if(debug) {
-        material = new THREE.MeshNormalMaterial();
-      } else {
-        material = new THREE.MeshPhongMaterial({color: 0x000000 });
+      function getRandomColour() {
+        const colours = [
+          0xFF0000,
+          0xFFAF00,
+          0xFFFF00,
+          0x008000,
+          0x0000FF,
+          0x4B0082,
+          0xEE82EE
+        ]
+        return colours[Math.floor(Math.random() * colours.length)];
+      }
+
+      function getMaterial() {
+        if(debug) {
+          return new THREE.MeshNormalMaterial();
+        } else {
+          return new THREE.MeshPhongMaterial({color: getRandomColour()});
+        }
       }
 
       // title
@@ -62,7 +76,7 @@
         const text = new TextGeometry((params.get("name") || 'Aarhus'), {font: font, size: 2, height: 0.1});
         text.computeBoundingBox();
 
-        const textMesh = new THREE.Mesh(text, material);
+        const textMesh = new THREE.Mesh(text, getMaterial());
         textMesh.position.x = -(text.boundingBox.max.x / 2);
         textMesh.position.y = 8;
         textMesh.position.z = -2;
@@ -70,7 +84,7 @@
       });
 
       // hall
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.9, 3.2).translate(-0.3, 1.9/2, 0), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.9, 3.2).translate(-0.3, 1.9/2, 0), getMaterial()));
 
       // hall roof
       const hallRoof = new THREE.Shape();
@@ -81,12 +95,12 @@
       hallRoof.lineTo(0, 0);
       const hallRoofGeometry = new THREE.ExtrudeGeometry(hallRoof, {steps: 1, depth: 0, bevelEnabled: true, bevelThickness: 0.7, bevelSize: 0.6, bevelSegments: 1});
       hallRoofGeometry.translate(-1.3, -1, 1.9);
-      const hallRoofMesh = new THREE.Mesh(hallRoofGeometry, material) ;
+      const hallRoofMesh = new THREE.Mesh(hallRoofGeometry, getMaterial()) ;
       hallRoofMesh.rotation.x = - 90 * (Math.PI / 180);
       scene.add(hallRoofMesh);
 
       // barn
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1, 3).translate(3.5, 1/2, -1), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1, 3).translate(3.5, 1/2, -1), getMaterial()));
 
       // barn roof
       const barnRoof = new THREE.Shape();
@@ -97,57 +111,57 @@
       barnRoof.lineTo(0, 0);
       const barnRoofGeometry = new THREE.ExtrudeGeometry(barnRoof, {steps: 1, depth: 0, bevelEnabled: true, bevelThickness: 0.9, bevelSize: 0.99, bevelSegments: 1});
       barnRoofGeometry.translate(3.5, 0.5, 1);
-      const barnRoofMesh = new THREE.Mesh(barnRoofGeometry, material) ;
+      const barnRoofMesh = new THREE.Mesh(barnRoofGeometry, getMaterial()) ;
       barnRoofMesh.rotation.x = - 90 * (Math.PI / 180);
       scene.add(barnRoofMesh);
 
       // barn extension
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(4.1, 0.6, 1.2).translate(2.3, 0.6/2, -3.1), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(4.1, 0.6, 1.2).translate(2.3, 0.6/2, -3.1), getMaterial()));
 
       // tower
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 3.3, 90).translate(7, 3.3/2, -1), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 3.3, 90).translate(7, 3.3/2, -1), getMaterial()));
 
       // tower roof
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.3, 1.3, 90).translate(7, 3.3 + 1.2/2 + 0.05, -1), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.3, 1.3, 90).translate(7, 3.3 + 1.2/2 + 0.05, -1), getMaterial()));
 
       // church
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 2, 90).translate(-3.5, 2/2, 1), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 2, 90).translate(-3.5, 2/2, 1), getMaterial()));
 
       // church roof
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 0.8, 2.9, 90).translate(-3.5, 1.6 + 2.6/2 + 0.55, 1), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 0.8, 2.9, 90).translate(-3.5, 1.6 + 2.6/2 + 0.55, 1), getMaterial()));
 
       // church hall
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.9, 1.6).translate(-4.7, 0.9/2, 1), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.7, 3).translate(-3.8, 0.7/2, 1), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.9, 1.6).translate(-4.7, 0.9/2, 1), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.7, 3).translate(-3.8, 0.7/2, 1), getMaterial()));
 
       // bank
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.7, 90).translate(-7.7, 1.7/2, -1.8), material));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.1, 90).translate(-7, 1.1/2, -3), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.7, 90).translate(-7.7, 1.7/2, -1.8), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.1, 90).translate(-7, 1.1/2, -3), getMaterial()));
 
       // bank roof
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.1, 1.5, 90).translate(-7.7, 1.45 + 2/2, -1.8), material));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.1, 1.5, 90).translate(-7.7, 1.45 + 2/2, -1.8), getMaterial()));
 
       // extra buidlings in front
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.5, 1).translate(-0.3, 1.5/2, 3), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 0.8, 1).translate(-0.1, 0.8/2, 5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1).translate(3, 1/2, 1.5), material));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.3, 90).translate(-3.5, 0.3/2, 3), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(-2.2, 0.8/2, 4.5), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.5, 1).translate(-0.3, 1.5/2, 3), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 0.8, 1).translate(-0.1, 0.8/2, 5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1).translate(3, 1/2, 1.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.3, 90).translate(-3.5, 0.3/2, 3), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(-2.2, 0.8/2, 4.5), getMaterial()));
 
       // extra buildings behind
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.3, 1.8, 2.5).translate(-1.5, 1.8/2, -4), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 2, 1).translate(1, 2/2, -5.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -6.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -5.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -4.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-5.3, 2.6/2, -6.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-6, 2.6/2, -6.5), material));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.2, 90).translate(-4.5, 0.2/2, -4), material));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1, 90).translate(-4.5, 1/2, -4), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.7, 0.6).translate(-1, 0.7/2, -7.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.7, 0.6).translate(2.5, 0.7/2, -7.5), material));
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.4, 0.6).translate(-1.15, 1.4/2, -5.5), material));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.3, 90).translate(5.5, 1.3/2, -5), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.3, 1.8, 2.5).translate(-1.5, 1.8/2, -4), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 2, 1).translate(1, 2/2, -5.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -6.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -5.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -4.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-5.3, 2.6/2, -6.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-6, 2.6/2, -6.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.2, 90).translate(-4.5, 0.2/2, -4), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1, 90).translate(-4.5, 1/2, -4), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.7, 0.6).translate(-1, 0.7/2, -7.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.7, 0.6).translate(2.5, 0.7/2, -7.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.4, 0.6).translate(-1.15, 1.4/2, -5.5), getMaterial()));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.3, 90).translate(5.5, 1.3/2, -5), getMaterial()));
 
       function animate() {
         requestAnimationFrame(animate);
