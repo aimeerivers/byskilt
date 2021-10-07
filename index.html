@@ -96,6 +96,12 @@
       // church hall
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.9, 1.6).translate(-5.2, 0.9/2, 1), material));
 
+      // bank
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.7, 90).translate(-8.2, 1.7/2, -1.8), material));
+
+      // bank roof
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.1, 1.5, 90).translate(-8.2, 1.45 + 2/2, -1.8), material));
+
       function animate() {
         requestAnimationFrame(animate);
         controls.update();
