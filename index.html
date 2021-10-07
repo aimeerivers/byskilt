@@ -38,12 +38,19 @@
       }
       controls.update();
 
+      // light
+      const light = new THREE.PointLight(0xFFFFFF, 1, 100);
+      light.position.x = -12;
+      light.position.y = 3;
+      light.position.z = -15;
+      scene.add(light);
+
       // material
       let material;
       if(debug) {
         material = new THREE.MeshNormalMaterial();
       } else {
-        material = new THREE.MeshBasicMaterial({color: 0x000000 });
+        material = new THREE.MeshPhongMaterial({color: 0x000000 });
       }
 
       // hall
