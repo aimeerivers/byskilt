@@ -26,7 +26,6 @@
       // controls
       const controls = new OrbitControls(camera, renderer.domElement);
       camera.position.set(0, 0, 12);
-      controls.autoRotate = !debug;
       controls.enableDamping = true;
       controls.dampingFactor = 0.1;
       controls.autoRotateSpeed = 10.0;
@@ -35,6 +34,7 @@
         controls.maxDistance = 25;
         controls.minPolarAngle = 0.9;
         controls.maxPolarAngle = Math.PI / 2;
+        setTimeout(() => { controls.autoRotate = true; }, 1000);
       }
       controls.update();
 
