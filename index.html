@@ -11,6 +11,8 @@
     <script type="module">
       import * as THREE from 'https://cdn.skypack.dev/three';
       import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls.js';
+      import { FontLoader } from 'https://cdn.skypack.dev/three/examples/jsm/loaders/FontLoader.js';
+      import { TextGeometry } from 'https://cdn.skypack.dev/three/examples/jsm/geometries/TextGeometry.js';
 
       const params = new URLSearchParams(window.location.search);
       const debug = params.get("debug");
@@ -108,6 +110,20 @@
 
       // bank roof
       scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.1, 1.5, 90).translate(-8.2, 1.45 + 2/2, -1.8), material));
+
+      // title
+      const loader = new FontLoader();
+
+      loader.load('./fonts/OpenSansBold.json', function (font) {
+        const text = new TextGeometry((params.get("name") || 'Aarhus'), {font: font, size: 2, height: 0.1});
+        text.computeBoundingBox();
+
+        const textMesh = new THREE.Mesh(text, material);
+        textMesh.position.x = -(text.boundingBox.max.x / 2);
+        textMesh.position.y = 8;
+        textMesh.position.z = -2;
+        scene.add(textMesh);
+      });
 
       function animate() {
         requestAnimationFrame(animate);
