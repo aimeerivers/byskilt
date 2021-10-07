@@ -46,7 +46,20 @@
       }
 
       // hall
-      scene.add(new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.9, 3.2).translate(-0.8  , 1.9/2, 0), material));
+      scene.add(new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.9, 3.2).translate(-0.8, 1.9/2, 0), material));
+
+      // hall roof
+      const hallRoof = new THREE.Shape();
+      hallRoof.moveTo(0,0);
+      hallRoof.lineTo(0, 2);
+      hallRoof.lineTo(2, 2);
+      hallRoof.lineTo(2, 0);
+      hallRoof.lineTo(0, 0);
+      const hallRoofGeometry = new THREE.ExtrudeGeometry(hallRoof, {steps: 1, depth: 0, bevelEnabled: true, bevelThickness: 0.7, bevelSize: 0.6, bevelSegments: 1});
+      hallRoofGeometry.translate(-1.8, -1, 1.9);
+      const hallRoofMesh = new THREE.Mesh(hallRoofGeometry, material) ;
+      hallRoofMesh.rotation.x = - 90 * (Math.PI / 180);
+      scene.add(hallRoofMesh);
 
       // barn
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1, 3).translate(3, 1/2, -1), material));
