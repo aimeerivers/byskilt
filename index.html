@@ -28,6 +28,7 @@
       camera.position.set(0, 0, 10);
       controls.autoRotate = !debug;
       controls.enableDamping = true;
+      controls.dampingFactor = 0.1;
       controls.autoRotateSpeed = 10.0;
       if(!debug) {
         controls.minDistance = 7;
@@ -99,6 +100,12 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       }
       window.addEventListener('resize', onWindowResize);
+
+      document.addEventListener('keyup', event => {
+        if (event.code === 'Space') {
+          controls.autoRotate = !controls.autoRotate;
+        }
+      });
     </script>
   </body>
 </html>
