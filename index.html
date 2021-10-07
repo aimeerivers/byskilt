@@ -12,7 +12,8 @@
       import * as THREE from 'https://cdn.skypack.dev/three';
       import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls.js';
 
-      const debug = false;
+      const params = new URLSearchParams(window.location.search);
+      const debug = params.get("debug");
 
       // scene, camera and renderer
       const scene = new THREE.Scene();
@@ -28,9 +29,9 @@
       controls.autoRotate = !debug;
       controls.enableDamping = true;
       controls.autoRotateSpeed = 5.0;
-      controls.minDistance = 7;
-      controls.maxDistance = 25;
       if(!debug) {
+        controls.minDistance = 7;
+        controls.maxDistance = 25;
         controls.minPolarAngle = 1/2;
         controls.maxPolarAngle = Math.PI / 2;
       }
@@ -41,7 +42,7 @@
       if(debug) {
         material = new THREE.MeshNormalMaterial();
       } else {
-        material = new THREE.MeshBasicMaterial( {color: 0x000000 });
+        material = new THREE.MeshBasicMaterial({color: 0x000000 });
       }
 
       // hall
