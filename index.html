@@ -63,6 +63,21 @@
 
       // barn
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1, 3).translate(3, 1/2, -1), material));
+
+      // barn roof
+      const barnRoof = new THREE.Shape();
+      barnRoof.moveTo(0,0);
+      barnRoof.lineTo(0, 1);
+      barnRoof.lineTo(0.01, 1);
+      barnRoof.lineTo(0.01, 0);
+      barnRoof.lineTo(0, 0);
+      const barnRoofGeometry = new THREE.ExtrudeGeometry(barnRoof, {steps: 1, depth: 0, bevelEnabled: true, bevelThickness: 0.9, bevelSize: 0.99, bevelSegments: 1});
+      barnRoofGeometry.translate(3, 0.5, 1);
+      const barnRoofMesh = new THREE.Mesh(barnRoofGeometry, material) ;
+      barnRoofMesh.rotation.x = - 90 * (Math.PI / 180);
+      scene.add(barnRoofMesh);
+
+      // barn wall
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.6, 0.2).translate(1.5, 0.6/2, -2.4), material));
 
       // tower
