@@ -157,6 +157,11 @@
       // bank roof
       scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0, 1.1, 1.5, 90).translate(-7.7, 1.45 + 2/2, -1.8), bankColour));
 
+      // monument
+      let monumentColour = getMaterial();
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.2, 90).translate(-4.5, 0.2/2, -4), monumentColour));
+      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1, 90).translate(-4.5, 1/2, -4), monumentColour));
+
       // extra buidlings in front
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.5, 1).translate(-0.3, 1.5/2, 3), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(1, 0.8, 1).translate(-0.1, 0.8/2, 5), getMaterial()));
@@ -172,8 +177,6 @@
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.6).translate(4, 0.8/2, -4.5), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-5.3, 2.6/2, -6.5), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 2.6, 0.5).translate(-6, 2.6/2, -6.5), getMaterial()));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.2, 90).translate(-4.5, 0.2/2, -4), getMaterial()));
-      scene.add(new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1, 90).translate(-4.5, 1/2, -4), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.1, 0.9).translate(-1, 1.1/2, -7.7), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.7, 0.6).translate(2.9, 0.7/2, -7.5), getMaterial()));
       scene.add(new THREE.Mesh(new THREE.BoxGeometry(2, 1.4, 0.4).translate(-1.15, 1.4/2, -5.8), getMaterial()));
