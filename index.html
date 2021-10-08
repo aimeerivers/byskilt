@@ -5,6 +5,13 @@
     <title>Byskilt</title>
     <style>
       body { margin: 0; }
+      div#controls {
+        z-index: 1;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -28,8 +35,6 @@
       // controls
       const controls = new OrbitControls(camera, renderer.domElement);
       camera.position.set(0, 0, 11);
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.1;
       controls.autoRotateSpeed = -10.0;
       if(!debug) {
         controls.minDistance = 7;
@@ -39,6 +44,7 @@
         setTimeout(() => { controls.autoRotate = true; }, 1000);
       }
       controls.update();
+      controls.saveState();
 
       // light
       const light = new THREE.PointLight(0xFFFFFF, 0.5, 30);
@@ -182,6 +188,23 @@
           controls.autoRotate = !controls.autoRotate;
         }
       });
+
+      document.getElementById("rotate").addEventListener('click', event => {
+        controls.autoRotate = !controls.autoRotate;
+      });
+
+      document.getElementById("reset").addEventListener('click', event => {
+        controls.autoRotate = false;
+        controls.reset();
+      });
     </script>
+  
+    <div id="controls">
+      <p>
+        <button id="rotate">Rotate/Pause</button>
+        <button id="reset">Reset</button>
+      </p>
+
+    </div>
   </body>
 </html>
