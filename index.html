@@ -22,11 +22,22 @@
     </style>
   </head>
   <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.skypack.dev/-/three@v0.143.0-Cpkbmg37IsbIniRRPFSZ/dist=es2019,mode=raw/build/three.module.js",
+          "three/OrbitControls": "https://cdn.skypack.dev/-/three@v0.143.0-Cpkbmg37IsbIniRRPFSZ/dist=es2019,mode=raw/examples/jsm/controls/OrbitControls.js",
+          "three/FontLoader": "https://cdn.skypack.dev/-/three@v0.143.0-Cpkbmg37IsbIniRRPFSZ/dist=es2019,mode=raw/examples/jsm/loaders/FontLoader.js",
+          "three/TextGeometry": "https://cdn.skypack.dev/-/three@v0.143.0-Cpkbmg37IsbIniRRPFSZ/dist=es2019,mode=raw/examples/jsm/geometries/TextGeometry.js"
+        }
+      }
+    </script>
+
     <script type="module">
-      import * as THREE from 'https://cdn.skypack.dev/three';
-      import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls.js';
-      import { FontLoader } from 'https://cdn.skypack.dev/three/examples/jsm/loaders/FontLoader.js';
-      import { TextGeometry } from 'https://cdn.skypack.dev/three/examples/jsm/geometries/TextGeometry.js';
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/OrbitControls';
+      import { FontLoader } from 'three/FontLoader';
+      import { TextGeometry } from 'three/TextGeometry';
 
       const params = new URLSearchParams(window.location.search);
       const debug = params.get("debug");
